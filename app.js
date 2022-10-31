@@ -8,10 +8,10 @@
 
 // Event handling, user interaction is what starts the code execution.
 
-var taskInput = document.getElementById(".add-item__input");//Add a new task.
-var addButton = document.getElementsByTagName(".add-item__button");//first button
-var incompleteTaskHolder = document.getElementById(".todo__list");//ul of #incompleteTasks
-var completedTasksHolder = document.getElementById(".completed__list");//completed-tasks
+var taskInput = document.querySelector(".add-item__input");//Add a new task.
+var addButton = document.querySelector(".add-item__button");//first button
+var incompleteTaskHolder = document.querySelector(".todo__list");//ul of #incompleteTasks
+var completedTasksHolder = document.querySelector(".completed__list");//completed-tasks
 
 
 //New task list item
@@ -41,8 +41,11 @@ var createNewTaskElement=function(taskString){
     checkBox.type="checkbox";
     checkBox.className = "item__checkbox"
 
-    editButton.type="text"; //innerText encodes special characters, HTML does not.
-    editButton.className ="item__input-name";
+    editInput.type="text";
+    editInput.className ="item__input-name";
+
+    editButton.innerText = "Edit"; //innerText encodes special characters, HTML does not.
+    editButton.className = "item__edit"
 
     deleteButton.className="item__delete";
     deleteButtonImg.src='./remove.svg';
@@ -61,7 +64,8 @@ var createNewTaskElement=function(taskString){
 
 
 
-var addTask=function(){
+var addTask=function(e){
+    e.preventDefault()
     console.log("Add Task...");
     //Create a new list item with the text from the #new-task:
     if (!taskInput.value) return;
@@ -149,7 +153,6 @@ var ajaxRequest=function(){
 
 
 //Set the click handler to the addTask function.
-addButton.onclick=addTask;
 addButton.addEventListener("click",addTask);
 addButton.addEventListener("click",ajaxRequest);
 
